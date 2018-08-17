@@ -1,10 +1,17 @@
 package com.viadialog.camundaclient.messaging;
 
+import com.sun.tools.javah.Gen;
+
 import java.io.Serializable;
 
-public class MyReceiptDTO implements Serializable {
+public class MyReceiptDTO extends GenericDTO {
 
     private String executionId;
+
+    public MyReceiptDTO() {
+        super();
+        this.type = "MYRECEIPT";
+    }
 
     public String getExecutionId() {
         return executionId;

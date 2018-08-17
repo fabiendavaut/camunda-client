@@ -1,18 +1,20 @@
 package com.viadialog.camundaclient.messaging;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
-public class MyCommandDTO implements Serializable {
+public class MyCommandDTO extends GenericDTO {
 
     @NotNull
     private String executionId;
 
     @NotNull
     private String label;
+
+    public MyCommandDTO() {
+        super();
+        this.type = "MYCOMMAND";
+    }
 
 //    @NotNull
 //    private Map<String, Object> payload = new HashMap<String, Object>();

@@ -18,13 +18,16 @@ public class ConsumerProducerService {
     }
 
     @StreamListener(ConsumerProducerChannel.COMMAND_CHANNEL)
-    public synchronized void consumeCommand(MyCommandDTO myCommandDTO) {
+    public synchronized void consumeCommand(GenericDTO genericDTO) {
 
-        log.debug("Received message: {}.", myCommandDTO);
+        log.debug("Received message: {}.", genericDTO);
 
-        MyReceiptDTO myReceiptDTO = new MyReceiptDTO().executionId(myCommandDTO.getExecutionId());
+        if (genericDTO instanceof MyCommandDTO) {
+            MyReceiptDTO myReceiptDTO = new MyReceiptDTO().executionId(((MyCommandDTO) genericDTO).getExecutionId());
 
-        this.consumerProducerChannel.sendReceipt().send(MessageBuilder.withPayload(myReceiptDTO).build());
+            this.consumerProducerChannel.sendReceipt().send(MessageBuilder.withPayload(myReceiptDTO).build());
+        }
+
     }
 
 
